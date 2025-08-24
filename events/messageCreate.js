@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const Database = require('../database/database.js');
 
 // Simple file-based storage for autorole
 const autoRoleFile = path.join(__dirname, '..', 'data', 'autoroles.json');
@@ -76,6 +77,9 @@ module.exports = {
     async execute(message, client) {
         if (message.author.bot) return;
         
+        // Update text message stats for leaderboard
+        await Database.updateTextStats(message.author.id, message.guild.id);
+        
         // Auto-response system
         if (Math.random() < 0.05) { // 5% chance
             await handleAutoResponse(message, client);
@@ -95,7 +99,7 @@ async function handleAutoResponse(message, client) {
     
     const now = Date.now();
     const timestamps = cooldowns.get('autoresponse');
-    const cooldownAmount = 0; // 1 minute
+    const cooldownAmount = 60000; // 1 minute
     
     if (timestamps.has(userId)) {
         const expirationTime = timestamps.get(userId) + cooldownAmount;
