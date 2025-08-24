@@ -1,73 +1,101 @@
-# Discord Bot Client
-Allows you to use your bot, just like any other user account, except Friends, Groups
+# Neko Discord Bot
 
-## [Demo](https://botclient.tk/)
-Direct host of the Github Repository without modifications
-WIP
+An advanced Discord bot with moderation, utility, AFK system, auto-responses with memory, leaderboards, and reminders using Discord.js.
 
-## [Download](https://github.com/Flam3rboy/discord-bot-client/releases/tag/3.0.0)
-### Program
-- Mac: [dmg](https://github.com/Flam3rboy/discord-bot-client/releases/download/3.0.0/discord-bot-client-3.0.0-mac.zip) | [zip](https://github.com/Flam3rboy/discord-bot-client/releases/download/3.0.0/discord-bot-client-3.0.0-mac.zip)
-- Windows: [x64](https://github.com/Flam3rboy/discord-bot-client/releases/download/3.0.0/discord-bot-client.Setup.3.0.0.exe)
-- Linux: [deb](https://github.com/Flam3rboy/discord-bot-client/releases/download/3.0.0/discord-bot-client_3.0.0_amd64.deb)
+## Features
 
-### Extension
-- [Firefox](https://addons.mozilla.org/firefox/addon/discord-bot-client/)
-- Chrome (coming soon)
-- [Other (.zip)](https://github.com/Flam3rboy/discord-bot-client/releases/download/3.0.0/extension.zip)
+### 🛡️ Moderation Commands
+- `/kick` - Kick a member from the server
+- `/ban` - Ban a member from the server
+- `/timeout` - Timeout (mute) a member temporarily
+- `/giverole` - Give a role to a member
+- `/removerole` - Remove a role from a member
 
-## [Tutorial](https://www.youtube.com/watch?v=_q3Hr2bsYr8)
-[![Youtube Tutorial Login as bot](https://img.youtube.com/vi/_q3Hr2bsYr8/0.jpg)](https://www.youtube.com/watch?v=_q3Hr2bsYr8)
+### ⚙️ Utility & Fun
+- `/say` - Custom messages with media support
+- `/afk` - Complete AFK system with mentions tracking
+- `/help` - Help command with detailed information
+- `/autorole` - Auto-assign roles to new members
 
-## Functions
-- View Guilds (Lazy load them) 
-- Manage Guilds (Name, Image, Audit log, Emoji, Webhooks, Invites, Bans, Widget, Moderation, Roles)
-- Manage Channels (Add, Delete, Name, Permissions, Invites, Webhooks, Slowmode, NSFW, Topic)
-- Messages (Send, View History, Embeds, View Reactions, Add/Remove Reactions, Delete, Edit, Pin)
-- Create a Guild (if the bot has fewer than 10 Servers)
-- Even supports mobile smartphones
-- Voice Support
-- See Guild members in the side bar (you can see them in the server dropdown menu under members)
-- React with other emojis (Nitro)
-- GIF Search
-- Send Files
+### 📊 Activity Tracking
+- `/leaderboard` - Shows both text messages and voice time stats
+- Auto-tracking for both VC and text activity
 
-## DM
-If you load the page, DM's will show up, if a new user writes the bot then you can answer him
+### ⏰ Advanced Reminders
+- `/reminder` - Set one-time OR repeating reminders
+- `/stopreminder` - Stop any repeating reminder
+- Support for images, GIFs, videos in reminders
 
-## Planned Features
-- Better Discord support
-- Direct Messages (DM) history list
-- Change Status
+### 🤖 Makima-Inspired Auto-Response
+- Personality: Calm, charming, manipulative, caring facade with sarcastic and humorous elements
+- Memory system: Remembers past conversations with each user
+- Smart responses: Different responses for anime, cooking, science topics
+- Natural timing: Random delays, cooldowns to seem human-like
 
-## Not supported by discord api
-- Message search
-- Video
-- Friends
-- DM Groups
-- Join server with invite link
+### 🎭 Dynamic Presence (rotates every 10 seconds)
+- 🟢 Online: "support our server: https://discord.gg/2rueyR4MPm"
+- 🟡 Idle: "talking with server members"
+- 🔴 DND: "helping X servers" (shows real server count)
+- 🟣 Streaming: "watching anime"
 
+## Installation
 
-## Docker
-To run the discord bot client in a docker container, you can just run:
+1. Clone this repository
+2. Run `npm install` to install dependencies
+3. Set up your `.env` file with your bot token and client ID
+4. Run `npm start` to start the bot
+
+## Usage
+
+All commands work with both slash commands and prefix commands (`*`).
+
+### Repeating Reminders
+- Slash: `/reminder message:"Take medicine" time:"8h" repeat:true`
+- Prefix: `*reminder Take medicine 8h repeat`
+
+### Say Command
+- `*say Hello everyone{newline}{newline}Welcome to our server!`
+- Results in proper line breaks
+
+### AFK System
+- `*afk Going to sleep 😴🌙`
+- When mentioned: Shows AFK message with time
+- When returning: Welcome back message with mention history
+
+## Project Structure
 ```
-docker run -p 8080:3000 -d flam3rboy/discord-bot-client
+├── index.js              # Main bot file
+├── package.json          # Dependencies
+├── .env                  # Environment variables (not included for security)
+├── database/
+│   └── database.js       # SQLite database system
+├── events/
+│   ├── ready.js          # Bot startup + presence rotation
+│   ├── messageCreate.js  # Auto-responses + AFK + prefix commands
+│   ├── interactionCreate.js  # Slash command handling
+│   ├── guildMemberAdd.js # Auto-role assignment
+│   └── voiceStateUpdate.js # Voice activity tracking
+├── commands/
+│   ├── help.js           # Help command
+│   ├── say.js            # Say command with {newline} + media
+│   ├── afk.js            # AFK system
+│   ├── reminder.js       # Reminders with repeat feature
+│   ├── stopreminder.js   # Stop repeating reminders
+│   ├── leaderboard.js    # Activity leaderboards
+│   ├── autorole.js       # Auto-role management
+│   ├── kick.js           # Kick moderation
+│   ├── ban.js            # Ban moderation
+│   ├── timeout.js        # Timeout moderation
+│   ├── giverole.js       # Give role command
+│   └── removerole.js     # Remove role command
+└── README.md             # This file
 ```
-This will start the server on: http://localhost:8080 
 
-Alternative you can install it locally on your system:
+## Security Note
+Never share your bot token publicly. The `.env` file is not included in this repository for security reasons.
 
-## Install
-- Install [Nodejs](https://nodejs.org/en/download/)
-- Install Dependencies:
-```
-npm i
-```
+## Contributing
+Feel free to fork this project and contribute your own improvements!
 
-## Start
-```
-npm start
-```
-Now navigate to http://localhost:3000/
-
-
+## License
+This project is licensed under the MIT License.
