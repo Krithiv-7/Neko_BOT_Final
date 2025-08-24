@@ -95,7 +95,7 @@ async function handleAutoResponse(message, client) {
     
     const now = Date.now();
     const timestamps = cooldowns.get('autoresponse');
-    const cooldownAmount = 60000; // 1 minute
+    const cooldownAmount = 0; // 1 minute
     
     if (timestamps.has(userId)) {
         const expirationTime = timestamps.get(userId) + cooldownAmount;
